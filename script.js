@@ -78,11 +78,7 @@ zero.addEventListener('click', () => {
     displayValue = Number(display.innerHTML);
 })
 
-const clearBtn = document.getElementById('clear-btn');
-clearBtn.addEventListener('click', () => {
-    display.innerHTML = '';
-    displayValue = Number(display.innerHTML);
-})
+
 
 
 
@@ -100,7 +96,7 @@ const operate = function(operator, num1, num2) {
 }
 
 
-let operation;
+let operation = '';
 const subtractBtn = document.getElementById('subtract');
 subtractBtn.addEventListener('click', () => {
     display.innerHTML += '-';
@@ -124,6 +120,26 @@ divideBtn.addEventListener('click', () => {
     display.innerHTML += '÷';
     operation = '/';
 })
+
+
+
+
+
+
+
+const clearBtn = document.getElementById('clear-btn');
+clearBtn.addEventListener('click', () => {
+    display.innerHTML = '';
+    operation = '';
+    displayValue = Number(display.innerHTML);
+})
+
+let displayValueTwo;
+/*if(operation) {
+    displayValue = '';
+    displayValueTwo = Number(display.innerHTML);
+}*/
+
 
 
 
