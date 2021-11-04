@@ -18,84 +18,6 @@ const display = document.getElementById('display');
 
 let displayValue = '';
 
-const one = document.getElementById('numOne');
-one.addEventListener('click', () => {
-    display.innerHTML += '1';
-    displayValue = Number(display.innerHTML);
-})
-
-const two = document.getElementById('numTwo');
-two.addEventListener('click', () => {
-    display.innerHTML += '2';
-    displayValue = Number(display.innerHTML);
-})
-
-const three = document.getElementById('numThree');
-three.addEventListener('click', () => {
-    display.innerHTML += '3';
-    displayValue = Number(display.innerHTML);
-})
-
-const four = document.getElementById('numFour');
-four.addEventListener('click', () => {
-    display.innerHTML += '4';
-    displayValue = Number(display.innerHTML);
-})
-
-const five = document.getElementById('numFive');
-five.addEventListener('click', () => {
-    display.innerHTML += '5';
-    displayValue = Number(display.innerHTML);
-})
-
-const six = document.getElementById('numSix');
-six.addEventListener('click', () => {
-    display.innerHTML += '6';
-    displayValue = Number(display.innerHTML);
-})
-
-const seven = document.getElementById('numSeven');
-seven.addEventListener('click', () => {
-    display.innerHTML += '7';
-    displayValue = Number(display.innerHTML);
-})
-
-const eight = document.getElementById('numEight');
-eight.addEventListener('click', () => {
-    display.innerHTML += '8';
-    displayValue = Number(display.innerHTML);
-})
-
-const nine = document.getElementById('numNine');
-nine.addEventListener('click', () => {
-    display.innerHTML += '9';
-    displayValue = Number(display.innerHTML);
-})
-
-const zero = document.getElementById('numZero');
-zero.addEventListener('click', () => {
-    display.innerHTML += '0';
-    displayValue = Number(display.innerHTML);
-})
-
-
-
-
-
-
-const operate = function(operator, num1, num2) {
-    if (operator === "-") {
-     return subtract(num1, num2);
-    } else if (operator === '+') {
-        return add(num1, num2);
-    } else if (operator === '*') {
-        return multiply(num1, num2); 
-    } else if (operator === '/') {
-        return divide(num1, num2);
-    }
-}
-
-
 let operation = '';
 const subtractBtn = document.getElementById('subtract');
 subtractBtn.addEventListener('click', () => {
@@ -122,23 +44,77 @@ divideBtn.addEventListener('click', () => {
 })
 
 
+/* grab all of my buttons
 
 
+*/
+let buttonsDiv = document.getElementById('buttons-div');
+const num = function() {
 
+}
+let firstValue = '';
+let secondValue = '';
+buttonsDiv.addEventListener('click', function(e) {
+    // store click inside variable
+    if(!operation) {
+        if (e.target.className === 'btn-class') {
+        firstValue += e.target.value;
+        display.textContent += e.target.value;
+        }
+    } else if(operation) {
+        if (e.target.className === 'btn-class') {
+            display.textContent += e.target.value
+            secondValue += e.target.value;
+        }
+    }
+})
+
+/*
+const one = document.getElementById('numOne');
+one.addEventListener('click', () => {
+    if (!operation) {
+    display.innerHTML += one.value;
+    displayValue = Number(display.innerHTML);
+    array.push(display.innerHTML)
+    x = displayValue;
+    } else if(operation) {
+        let displayValueTwo = '';
+        displayValueTwo = Number(display.innerHTML)
+    }
+})
+*/
+
+const operate = function(operator, num1, num2) {
+    if (operator === "-") {
+     return subtract(num1, num2);
+    } else if (operator === '+') {
+        return add(num1, num2);
+    } else if (operator === '*') {
+        return multiply(num1, num2); 
+    } else if (operator === '/') {
+        return divide(num1, num2);
+    }
+}
 
 
 const clearBtn = document.getElementById('clear-btn');
 clearBtn.addEventListener('click', () => {
     display.innerHTML = '';
+    clickButton = '';
     operation = '';
     displayValue = Number(display.innerHTML);
 })
 
-let displayValueTwo;
-/*if(operation) {
-    displayValue = '';
-    displayValueTwo = Number(display.innerHTML);
-}*/
+
+
+
+
+
+
+
+
+
+
 
 
 
