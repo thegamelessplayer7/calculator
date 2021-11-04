@@ -6,12 +6,12 @@ const subtract = function(a, b) {
     return a - b;
 };
 
-const multiply = function(a) {
-    return a.reduce((total, current) => total * current);
+const multiply = function(a, b) {
+    return a * b;
 };
 
-const divide = function(a) {
-    return a.reduce((total, current) => total / current);
+const divide = function(a, b) {
+    return a / b;
 };
 
 const display = document.getElementById('display');
@@ -43,28 +43,51 @@ divideBtn.addEventListener('click', () => {
     operation = '/';
 })
 
+let answer = '';
+const equalBtn = document.getElementById('equals');
+equalBtn.addEventListener('click', () => {
+    answer = ` ${operate(operation, firstValue, secondValue)}`;
+    display.innerHTML = answer;
+    answer = Number(answer);
+    operation = '';
+    secondValue = '';
+    firstValue = '';
+    // if an answer exists, and another number is pressed,
+    // I want to clear the previous value and add the new
+    // number.
+    // if an answer exists and an operator is pressed,
+    // I want it to operate on the number.
+    
+})
 
 /* grab all of my buttons
 
 
 */
 let buttonsDiv = document.getElementById('buttons-div');
-const num = function() {
 
-}
 let firstValue = '';
 let secondValue = '';
 buttonsDiv.addEventListener('click', function(e) {
     // store click inside variable
+    if(answer) {
+        firstValue = Number(answer);
+        firstValue = Number(firstValue);
+    }
     if(!operation) {
         if (e.target.className === 'btn-class') {
         firstValue += e.target.value;
         display.textContent += e.target.value;
+        firstValue = Number(firstValue);
+        //change value of firstValue from string to integer
         }
     } else if(operation) {
         if (e.target.className === 'btn-class') {
+            
             display.textContent += e.target.value
             secondValue += e.target.value;
+            secondValue = Number(secondValue);
+            //change value of secondValue from string to integer
         }
     }
 })
@@ -100,8 +123,10 @@ const operate = function(operator, num1, num2) {
 const clearBtn = document.getElementById('clear-btn');
 clearBtn.addEventListener('click', () => {
     display.innerHTML = '';
-    clickButton = '';
+    firstValue = '';
+    secondValue = '';
     operation = '';
+    answer = '';
     displayValue = Number(display.innerHTML);
 })
 
