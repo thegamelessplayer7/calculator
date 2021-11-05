@@ -13,6 +13,16 @@ html {
     background-color: rgb(192,143,41);
 }
 
+@font-face {
+  font-family: 'MyWebFont';
+  src: url('webfont.eot'); /* IE9 Compat Modes */
+  src: url('webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('webfont.woff2') format('woff2'), /* Super Modern Browsers */
+       url('webfont.woff') format('woff'), /* Pretty Modern Browsers */
+       url('webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('webfont.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
 #calculator {
     border: 10px solid #000;
     border-radius: 50px;
@@ -22,6 +32,7 @@ html {
     transform: translate(-50%, -50%);
     width: 400px;
     background-color: rgb(245,203,36);
+    height: 600px;
 }
 
 #display {
@@ -29,11 +40,14 @@ html {
     font-size: 5rem;
     height: 80px;
     border: none;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
     background-color: #000;
     color: #fff;
     text-align: right;
     padding-right: 20px;
     padding-left: 10px;
+    margin-bottom: 12px;
 }
 
 button {
@@ -53,7 +67,10 @@ button:hover {
 }
 
 .operation-btn {
-    color: #337cac;
+    color: #000000;
+}
+.operation-btn:hover {
+    background-color:rgb(56, 100, 247);
 }
 
 #clear-btn {
@@ -67,17 +84,18 @@ button:hover {
 }
 
 #equals {
-    background-color: #2e86c0;
-    border-color: #337cac;
+    background-color: #02304e;
+    border-color: #02304e;
     color: #fff;
     grid-row-start: 2;
     grid-row-end: 6;
     height: auto;
     grid-column-start: 4;
+    grid-column-end: 5;
 }
 
 #equals:hover {
-    background-color: #4e9ed4;
+    background-color: #043f66;
 }
 
 #buttons-div {
@@ -87,10 +105,54 @@ button:hover {
     padding: 20px;
 }
 
-button[value='1'] {
-    background-color: blue;
+button[value='1']:hover {
+    background-color: rgb(136, 136, 255);
+}
+button[value='2']:hover {
+    background-color: rgb(45, 250, 250);
+}
+button[value='3']:hover {
+    background-color: rgb(106, 219, 53);
+}
+button[value='4']:hover {
+    background-color: rgb(255, 170, 136);
+}
+button[value='5']:hover {
+    background-color: rgb(136, 136, 255);
+}
+button[value='6']:hover {
+    background-color: rgb(241, 159, 81);
+}
+button[value='7']:hover {
+    background-color: rgb(255, 237, 136);
+}
+button[value='8']:hover {
+    background-color: rgb(136, 255, 172);
+}
+button[value='9']:hover {
+    background-color: rgb(159, 48, 233);
+}
+button[value='0']:hover {
+    background-color: rgb(238, 50, 106);
+}
+button[value='.']:hover {
+    background-color: rgb(238, 50, 50);
 }
 
+#bottom-text {
+    text-align: center;
+    font-family: Montserrat;
+    text-transform: uppercase;
+    font-size: 16px;
+    color:rgb(59, 2, 2);
+}
+#bottom-text-two {
+    text-align: center;
+    font-family: Montserrat;
+    text-transform: uppercase;
+    font-size: 14px;
+    
+}
 
 
 /*
