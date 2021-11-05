@@ -110,6 +110,11 @@ const continuedOperationClear = function() {
 const equalsBtn = document.getElementById('equals');
 equalsBtn.addEventListener('click', function() {
     //operate on values
+    //if there isn't a firstValue or secondValue, 
+    //equal shouldn't do anything
+    if((!firstValue) || (!secondValue)) {
+        return answer = ''; 
+    }
     if(!operatorTwo) {
         //if there is no second operator, then operate on
         //the values and return the answer
