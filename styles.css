@@ -1,0 +1,158 @@
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+  }
+  
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+  }
+
+  :root {
+    background-color: rgb(192,143,41);
+}
+
+#calculator {
+    border: 10px solid #000;
+    border-radius: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: rgb(245,203,36);
+}
+
+#display {
+    width: 100%;
+    font-size: 5rem;
+    height: 80px;
+    border: none;
+    background-color: #000;
+    color: #fff;
+    text-align: right;
+    padding-right: 20px;
+    padding-left: 10px;
+}
+
+button {
+    height: 60px;
+    background-color: #fff;
+    border-radius: 3px;
+    border: 1px solid #000;
+    font-size: 2rem;
+    color: #000;
+    background-image: linear-gradient(to bottom, transparent, transparent 50%,rgba(0,0,0,.04));
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.05) inset 0 1px 0 0 rgba(255,255,255,.45), inset 0 -1px 0 0 rgba(255,255,255,.15) 0 1px 0 0 rgba(255,255,255,.15);
+    text-shadow: 0 1px rgba(255,255,255,.4);
+}
+
+button:hover {
+    background-color: #eaeaea;
+}
+
+.operation-btn {
+    color: #337cac;
+}
+
+#clear-btn {
+    background-color: #db9c14;
+    border-color: #b0353a;
+    color: rgb(0, 0, 0);
+}
+
+#clear-btn:hover {
+    background-color: #f17377;
+}
+
+#equals {
+    background-color: #2e86c0;
+    border-color: #337cac;
+    color: #fff;
+    grid-row-start: 2;
+    grid-row-end: 6;
+    height: auto;
+    grid-column-start: 4;
+}
+
+#equals:hover {
+    background-color: #4e9ed4;
+}
+
+#buttons-div {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+    padding: 20px;
+}
+
+button[value='1'] {
+    background-color: blue;
+}
+
+
+
+/*
+
+
+/* Gold background. Rounded Calculator edges with a black
+border. Background of the Calculator will be gold/yellow.
+The font will be black. The button border will be black. 
+
+
+:root {
+    background-color: rgb(192,143,41);
+}
+
+#calculator {
+    margin-top: 150px;
+    background-color: rgb(245,203,36);
+    border-color: black; 
+    border-width: thick;
+    border-style: solid; 
+    height: 100%;
+    max-width: 700px;
+    max-height: 500px;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-right: 50px;
+    margin-left: 50px;
+    /*position: absolute;*/
+    
+    
+    
+}
+
+/* display black with a standard height that shows
+whether there's a number in it or not 
+
+#display {
+    z-index: 999;
+    padding: 30px;
+    color: yellow;
+    background-color: black;
+
+}
+
+Operator buttons will be black. 
+
+
+#buttons-div {
+    --grid-cols: 1;
+    --grid-rows: 1;
+}
+
+.btn-class {
+    background-color: black;
+    color: white;
+    display: grid;
+    grid-template-rows: repeat(var(--grid-rows), 1fr);
+    grid-template-columns: repeat(var(--grid-cols), 1fr);
+
+}
+
+ Developed by TheGamelessPlayer at the bottom on a 
+white background. Then it will say "The Odin Project"
+
+*/

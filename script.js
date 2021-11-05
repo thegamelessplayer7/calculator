@@ -1,146 +1,138 @@
+//create functions for my operations: add, subtract, 
+//multiply and divide
 const add = function(a, b) {
     return a + b;
-};
-
+}
 const subtract = function(a, b) {
     return a - b;
-};
-
+}
 const multiply = function(a, b) {
     return a * b;
-};
-
+}
 const divide = function(a, b) {
     return a / b;
-};
+}
 
-const display = document.getElementById('display');
-
-let displayValue = '';
-
-let operation = '';
-const subtractBtn = document.getElementById('subtract');
-subtractBtn.addEventListener('click', () => {
-    display.innerHTML += '-';
-    operation = '-';
-})
-
-const addBtn = document.getElementById('add');
-addBtn.addEventListener('click', () => {
-    display.innerHTML += '+';
-    operation = '+';
-})
-
-const multiplyBtn = document.getElementById('multiply');
-multiplyBtn.addEventListener('click', () => {
-    display.innerHTML += '*';
-    operation = '*';
-})
-
-const divideBtn = document.getElementById('divide');
-divideBtn.addEventListener('click', () => {
-    display.innerHTML += '÷';
-    operation = '/';
-})
-
+//create global answer variable.
 let answer = '';
-const equalBtn = document.getElementById('equals');
-equalBtn.addEventListener('click', () => {
-    answer = ` ${operate(operation, firstValue, secondValue)}`;
-    display.innerHTML = answer;
-    answer = Number(answer);
-    operation = '';
-    secondValue = '';
-    firstValue = '';
-    // if an answer exists, and another number is pressed,
-    // I want to clear the previous value and add the new
-    // number.
-    // if an answer exists and an operator is pressed,
-    // I want it to operate on the number.
-    
-})
 
-/* grab all of my buttons
-
-
-*/
-let buttonsDiv = document.getElementById('buttons-div');
-
-let firstValue = '';
-let secondValue = '';
-buttonsDiv.addEventListener('click', function(e) {
-    // store click inside variable
-    if(answer) {
-        firstValue = Number(answer);
-        firstValue = Number(firstValue);
-    }
-    if(!operation) {
-        if (e.target.className === 'btn-class') {
-        firstValue += e.target.value;
-        display.textContent += e.target.value;
-        firstValue = Number(firstValue);
-        //change value of firstValue from string to integer
+//create operate function that will perform operation on 
+//two numbers
+const operate = function(operation, a, b) {
+    if(operation === '+') {
+        return answer = a + b;
+    } else if(operation === '-') {
+        return answer = a - b;
+    } else if(operation === '*') {
+        return answer = a * b;
+    } else if(operation === '÷') {
+        if(b === '0') {
+            return answer = 'Oh, hell naw';
+        } else {
+            return answer = a / b;
         }
-    } else if(operation) {
-        if (e.target.className === 'btn-class') {
-            
-            display.textContent += e.target.value
-            secondValue += e.target.value;
-            secondValue = Number(secondValue);
-            //change value of secondValue from string to integer
-        }
-    }
-})
-
-/*
-const one = document.getElementById('numOne');
-one.addEventListener('click', () => {
-    if (!operation) {
-    display.innerHTML += one.value;
-    displayValue = Number(display.innerHTML);
-    array.push(display.innerHTML)
-    x = displayValue;
-    } else if(operation) {
-        let displayValueTwo = '';
-        displayValueTwo = Number(display.innerHTML)
-    }
-})
-*/
-
-const operate = function(operator, num1, num2) {
-    if (operator === "-") {
-     return subtract(num1, num2);
-    } else if (operator === '+') {
-        return add(num1, num2);
-    } else if (operator === '*') {
-        return multiply(num1, num2); 
-    } else if (operator === '/') {
-        return divide(num1, num2);
     }
 }
 
+//create display variable
+const display = document.getElementById('display');
 
+//create 'clear' variable and function.
 const clearBtn = document.getElementById('clear-btn');
 clearBtn.addEventListener('click', () => {
-    display.innerHTML = '';
+    display.textContent = '';
+    //clear firstValue, secondValue & operator
     firstValue = '';
     secondValue = '';
-    operation = '';
-    answer = '';
-    displayValue = Number(display.innerHTML);
+    operator = '';
+    operatorTwo = '';
 })
 
+//create variable to hold operator
+let operator = '';
+//create variable to hold second operator
+let operatorTwo = '';
 
+//create div variable that will hold all of the buttons
+//so that I can put an event listener on the entire div.
+//create value variables.
+//create number buttons function along with variable
+//that holds the first value and secondValue.
+const buttonsDiv = document.getElementById('buttons-div');
+let firstValue = '';
+let secondValue = '';
 
+buttonsDiv.addEventListener('click', function(e) {
+    if((e.target.classList.contains('btn-class')) && (!operator)) {
+        display.textContent += e.target.value;
+        firstValue = Number(display.textContent);
+    } else if((e.target.classList.contains('btn-class')) && (operator)) {
+        operatorTwo = '';
+        display.textContent += e.target.value;
+        secondValue += e.target.value;
+        secondValue = Number(secondValue);
+    } else if((!secondValue) && (e.target.classList.contains('operation-btn'))) {
+        display.textContent += e.target.value;
+        operator = e.target.value;
+    } else if((secondValue) && (e.target.classList.contains('operation-btn'))) {
+        //if a second value exists, then initialize operatorTwo
+        //and return answer and store it in the firstValue
+        //variable.
+        operatorTwo = e.target.value;
+        equalsBtn.click();
+    }
+})
 
+//create secondary clear function that clears the display
+//and only clears the secondValue & operator, and stores
+//the answer inside the firstValue once the equal button
+//event listener is clicked.
+const equalClear = function() {
+    display.textContent = '';
+    secondValue = '';
+    firstValue = Number(answer);
+    display.textContent = firstValue;
+    //if operatorTwo exists, then display it and use it on
+    //values, with firstValue being equal to answer. Need
+    //to be able to loop for multiple operatorTwo.
+    /*if(operatorTwo) {
 
+    }*/
+}
 
+const continuedOperationClear = function() {
+    display.textContent = answer;
+}
 
-
-
-
-
-
-
-
-
+//create equal button event listener that operates on the
+//values and uses the equalClear function to clear the 
+//display so that only the answer shows.
+const equalsBtn = document.getElementById('equals');
+equalsBtn.addEventListener('click', function() {
+    //operate on values
+    if(!operatorTwo) {
+        //if there is no second operator, then operate on
+        //the values and return the answer
+        answer = operate(operator, firstValue, secondValue);
+        equalClear();
+    } else if (operatorTwo) {
+        //if operatorTwo does exist, then get the answer 
+        //from operating on firstValue and secondValue and
+        //store the answer in firstValue and clear 
+        //secondValue and store operatorTwo in operator and
+        //return the answer if there is not another 
+        //operatorTwo. If there is, then return to this step.
+        answer = operate(operator, firstValue, secondValue);
+        answer = Number(answer);
+        display.textContent = answer;
+        display.textContent += ` ${operatorTwo}`;
+        firstValue = answer;
+        secondValue = '';
+        operator = operatorTwo;
+        buttonsDiv.click();
+    } else if ((operatorTwo) && (secondValue)) {
+        answer = operate(operatorTwo, firstValue, secondValue);
+    } else {
+        equalClear();
+    }
+})
