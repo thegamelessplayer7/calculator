@@ -141,3 +141,10 @@ equalsBtn.addEventListener('click', function() {
         equalClear();
     }
 })
+
+
+
+//If decimal class is targeted, don't let it be 
+        //pressed twice. If display.textContent = '.' and
+        //the target equals '.', then it needs to produce
+        //an empty string when pressed 
