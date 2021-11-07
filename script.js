@@ -63,18 +63,51 @@ let firstValue = '';
 let secondValue = '';
 
 buttonsDiv.addEventListener('click', function(e) {
-    if((e.target.classList.contains('btn-class')) && (!operator)) {
+            //give decimal class its own if statement.
+        //If decimal class is targeted, don't let it be 
+        //pressed twice. If display.textContent = '.' and
+        //the target equals '.', then it needs to produce
+        //an empty string when pressed 
+    if(e.target.classList.contains('decimal')) {
+        if(display.textContent.includes('.') && (!secondValue)) {
+            console.log('hello');
+            ;;
+        } else if ((!display.textContent.includes('.')) && (!secondValue)) {
+            display.textContent += e.target.value;
+        firstValue = Number(display.textContent);
+       
+     } else if ((firstValue.toString().includes('.'))  &&   (secondValue.toString().includes('.')) ) {
+        ;;
+     } else if ( (firstValue.toString().includes('.')) && (operator) && (secondValue.toString().includes('.')) ) {
+          
+        ;;
+     
+     
+     /*} else if(secondValue) {
+            display.textContent += e.target.value;
+            secondValue += e.target.value;
+            secondValue = Number(secondValue);
+        }*/
+
+      }  else if(secondValue) {
+            display.textContent += e.target.value;
+            secondValue.toString();
+            secondValue += e.target.value;
+        }
+
+    }
+    if( (e.target.classList.contains('btn-class')) && (!operator) && (!(e.target.classList.contains('decimal')))) {
         display.textContent += e.target.value;
         firstValue = Number(display.textContent);
-    } else if((e.target.classList.contains('btn-class')) && (operator)) {
+    } else if((e.target.classList.contains('btn-class')) && (operator) && (!(e.target.classList.contains('decimal')))) {
         operatorTwo = '';
         display.textContent += e.target.value;
         secondValue += e.target.value;
         secondValue = Number(secondValue);
-    } else if((!secondValue) && (e.target.classList.contains('operation-btn'))) {
+    } else if((!secondValue) && (e.target.classList.contains('operation-btn')) && (!(e.target.classList.contains('decimal')))) {
         display.textContent += e.target.value;
         operator = e.target.value;
-    } else if((secondValue) && (e.target.classList.contains('operation-btn'))) {
+    } else if((secondValue) && (e.target.classList.contains('operation-btn')) && (!(e.target.classList.contains('decimal')))) {
         //if a second value exists, then initialize operatorTwo
         //and return answer and store it in the firstValue
         //variable.
