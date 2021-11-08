@@ -46,6 +46,7 @@ clearBtn.addEventListener('click', () => {
     secondValue = '';
     operator = '';
     operatorTwo = '';
+    answer = '';
 })
 
 //create variable to hold operator
@@ -107,10 +108,12 @@ buttonsDiv.addEventListener('click', function(e) {
         }
 
     }
-    if( (e.target.classList.contains('btn-class')) && (!operator) && (!(e.target.classList.contains('decimal')))) {
+    if( (e.target.classList.contains('btn-class')) && (!operator) && (!(e.target.classList.contains('equal'))) && (!(e.target.classList.contains('decimal'))) && firstValue.toString().length < 5) {
         display.textContent += e.target.value;
         firstValue = Number(display.textContent);
-    } else if((e.target.classList.contains('btn-class')) && (operator) && (!(e.target.classList.contains('decimal')))) {
+        //make these changes to below else if.
+        //Only do this if answer is NOT 'Oh, hell naw'
+    } else if((e.target.classList.contains('btn-class')) && (answer != 'Oh, hell naw') && (operator) && (!(e.target.classList.contains('decimal'))) && secondValue.toString().length < 5) {
         operatorTwo = '';
         display.textContent += e.target.value;
         secondValue += e.target.value;
@@ -121,7 +124,17 @@ buttonsDiv.addEventListener('click', function(e) {
     } else if ((secondValue === 0) && (e.target.classList.contains('operation-btn')) && (!(e.target.classList.contains('decimal')))) {
         operatorTwo = e.target.value;
         equalsBtn.click();
-    
+    //Add an if statement almost identical to the above
+    //if statement but with a slight tweak to take care
+    //of the instance of a number being divided by 0 and 
+    //then another operation being added to the first
+    //calculation before the equal sign is pressed. So
+    //we want to say that if the secondValue = 0 and an
+    //operator = '÷', return 'Oh hell naw' and clear
+    //all values
+} else if ((secondValue === 0) && (operator = '÷') && (e.target.classList.contains('operation-btn')) && (!(e.target.classList.contains('decimal')))) {
+    display.textContent = 'Oh hell naw';
+    //equalClear();
     } else if((!secondValue) && (e.target.classList.contains('operation-btn')) && (!(e.target.classList.contains('decimal')))) {
         display.textContent += e.target.value;
         operator = e.target.value;
@@ -131,7 +144,12 @@ buttonsDiv.addEventListener('click', function(e) {
         //variable.
         operatorTwo = e.target.value;
         equalsBtn.click();
+    //do nothing if answer is 'Oh, hell naw' and 
+    //secondValue is equal to 0
+    } else if(answer === 'Oh, hell naw' && secondValue === 0) {
+        ;;
     }
+    
 })
 
 //create secondary clear function that clears the display
@@ -163,6 +181,37 @@ const equalClear = function() {
     }
 }
 
+
+//creating equalclearTwo for the specific instance of
+//returning my string 'Oh hell naw' without clearing
+//the display
+const equalClearTwo = function() {
+    
+    
+    //allow for the division of 0, because if it divides
+    //by 0, then I need to return my string 'oh hell nah'.
+    //so instead of turning firstValue into a number, I
+    //need an option that keeps it a string if variable
+    //b is equal to zero.
+    if(secondValue === 0 && operator === '÷') {
+        secondValue = '';
+        firstValue = answer;
+        display.textContent = firstValue;
+    } else {
+    secondValue = '';
+    firstValue = Number(answer);
+    display.textContent = firstValue;
+    //if operatorTwo exists, then display it and use it on
+    //values, with firstValue being equal to answer. Need
+    //to be able to loop for multiple operatorTwo.
+    /*if(operatorTwo) {
+
+    }*/
+    }
+}
+
+
+
 const continuedOperationClear = function() {
     display.textContent = answer;
 }
@@ -188,20 +237,34 @@ equalsBtn.addEventListener('click', function() {
     //secondValue is a 0, then do operation. 
     if ((firstValue) && (operator) && (secondValue === 0)) {
         answer = operate(operator, firstValue, secondValue);
-        equalClear();
+        display.textContent = answer;
+        firstValue = '';
+        operator = '';
+        //equalClear();
         }
     //If there is only a first value and an operator and
     //no secondValue, then return first value.
     if((firstValue) && (operator) && (!secondValue)) {
         display.textContent = firstValue;
-        return answer = display.textContent;
+        answer = display.textContent;
+        answer = Number((answer.toFixed(5)));
+        //operator = '';
+        equalClear();
     }
-    if(!operatorTwo) {
+    if(firstValue && secondValue && !operatorTwo) {
         //if there is no second operator, then operate on
         //the values and return the answer
         answer = operate(operator, firstValue, secondValue);
+        answer = Number((answer.toFixed(5)));
         equalClear();
-    } else if (operatorTwo) {
+    //if firstValue is 0 and secondValue exists and there
+    //is no operatorTwo, then operate. Make this identical
+    //to above if statement, just adding firstValue === 0
+    } else if(firstValue === 0 && secondValue && !operatorTwo) {
+        answer = operate(operator, firstValue, secondValue);
+        answer = Number((answer.toFixed(5)));
+        equalClear();
+    } else if (operatorTwo && firstValue && secondValue) {
         //if operatorTwo does exist, then get the answer 
         //from operating on firstValue and secondValue and
         //store the answer in firstValue and clear 
@@ -210,6 +273,7 @@ equalsBtn.addEventListener('click', function() {
         //operatorTwo. If there is, then return to this step.
         answer = operate(operator, firstValue, secondValue);
         answer = Number(answer);
+        answer = Number((answer.toFixed(5)));
         display.textContent = answer;
         display.textContent += ` ${operatorTwo}`;
         firstValue = answer;
@@ -218,9 +282,10 @@ equalsBtn.addEventListener('click', function() {
         buttonsDiv.click();
     } else if ((operatorTwo) && (secondValue)) {
         answer = operate(operatorTwo, firstValue, secondValue);
-    } else {
+        answer = Number((answer.toFixed(5)));
+    } /*else {
         equalClear();
-    }
+    }*/
 })
 
 
