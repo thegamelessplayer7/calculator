@@ -26,7 +26,7 @@ const operate = function(operation, a, b) {
     } else if(operation === '*') {
         return answer = a * b;
     } else if(operation === '÷') {
-        if(b === '0') {
+        if(b === 0) {
             return answer = 'Oh, hell naw';
         } else {
             return answer = a / b;
@@ -69,7 +69,18 @@ buttonsDiv.addEventListener('click', function(e) {
         //the target equals '.', then it needs to produce
         //an empty string when pressed 
     if(e.target.classList.contains('decimal')) {
+        //if there is a firstValue and secondValue contains a
+        //0, then add decimal. 
+        if (display.textContent.includes('.') && (secondValue === 0)) {
+            display.textContent += e.target.value;
+            secondValue.toString();
+            secondValue += e.target.value;
+        }
         if(display.textContent.includes('.') && (!secondValue)) {
+        //this means if the firstValue has a decimal and
+            //there is no secondValue, then don't allow another
+            //decimal to be written. But if secondValue equals to
+            //0, then we do want a decimal to be added. 
             console.log('hello');
             ;;
         } else if ((!display.textContent.includes('.')) && (!secondValue)) {
@@ -104,6 +115,13 @@ buttonsDiv.addEventListener('click', function(e) {
         display.textContent += e.target.value;
         secondValue += e.target.value;
         secondValue = Number(secondValue);
+        //if there is a firstValue and secondValue contains a
+        //0, then initialize operatorTwo and return answer 
+        //and store it in the firstValue variable. 
+    } else if ((secondValue === 0) && (e.target.classList.contains('operation-btn')) && (!(e.target.classList.contains('decimal')))) {
+        operatorTwo = e.target.value;
+        equalsBtn.click();
+    
     } else if((!secondValue) && (e.target.classList.contains('operation-btn')) && (!(e.target.classList.contains('decimal')))) {
         display.textContent += e.target.value;
         operator = e.target.value;
@@ -122,6 +140,17 @@ buttonsDiv.addEventListener('click', function(e) {
 //event listener is clicked.
 const equalClear = function() {
     display.textContent = '';
+    
+    //allow for the division of 0, because if it divides
+    //by 0, then I need to return my string 'oh hell nah'.
+    //so instead of turning firstValue into a number, I
+    //need an option that keeps it a string if variable
+    //b is equal to zero.
+    if(secondValue === 0 && operator === '÷') {
+        secondValue = '';
+        firstValue = answer;
+        display.textContent = firstValue;
+    } else {
     secondValue = '';
     firstValue = Number(answer);
     display.textContent = firstValue;
@@ -131,6 +160,7 @@ const equalClear = function() {
     /*if(operatorTwo) {
 
     }*/
+    }
 }
 
 const continuedOperationClear = function() {
@@ -145,8 +175,26 @@ equalsBtn.addEventListener('click', function() {
     //operate on values
     //if there isn't a firstValue or secondValue, 
     //equal shouldn't do anything
-    if((!firstValue) || (!secondValue)) {
-        return answer = ''; 
+    /*if((!firstValue) || (!secondValue)) {
+        //return answer = ''; 
+        if(firstValue) {
+            answer = firstValue;
+        } else if (secondValue) {
+        answer = secondValue;
+        }
+        display.textContent = answer;
+    }*/
+    //if there is a firstValue and an operator and
+    //secondValue is a 0, then do operation. 
+    if ((firstValue) && (operator) && (secondValue === 0)) {
+        answer = operate(operator, firstValue, secondValue);
+        equalClear();
+        }
+    //If there is only a first value and an operator and
+    //no secondValue, then return first value.
+    if((firstValue) && (operator) && (!secondValue)) {
+        display.textContent = firstValue;
+        return answer = display.textContent;
     }
     if(!operatorTwo) {
         //if there is no second operator, then operate on
