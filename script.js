@@ -160,7 +160,8 @@ buttonsDiv.addEventListener('click', function(e) {
         /*display.textContent += e.target.value;
         operator = e.target.value;*/
         operator = e.target.value;
-        display.textContent = `${firstValue} ${operator}`;
+        firstValue = firstValue.toExponential(1);
+        display.textContent = firstValue + ` ${operator}`;
     } else if((secondValue) && (e.target.classList.contains('operation-btn')) && (!(e.target.classList.contains('decimal')))) {
         //if a second value exists, then initialize operatorTwo
         //and return answer and store it in the firstValue
