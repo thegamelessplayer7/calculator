@@ -108,12 +108,29 @@ buttonsDiv.addEventListener('click', function(e) {
         }
 
     }
-    if( (e.target.classList.contains('btn-class')) && (!operator) && (!(e.target.classList.contains('equal'))) && (!(e.target.classList.contains('decimal'))) && firstValue.toString().length < 5) {
+    if( (e.target.classList.contains('btn-class')) && (!operator) && (!(e.target.classList.contains('equal'))) && (!(e.target.classList.contains('decimal'))) && firstValue.toString().length < 4) {
         display.textContent += e.target.value;
         firstValue = Number(display.textContent);
+        //Create an if statement for the instance of 
+        //an operator being pressed but there is no
+        //firstValue. If the operator is pressed but
+        //there is no firstValue, then any number that
+        //is entered, becomes the firstValue. If the operator
+        //is anything but ('-'), then clear it.
+    } else if((!firstValue) && (!secondValue) && (e.target.classList.contains('btn-class')) && (operator && operator != '-' && operator != '÷' && operator != '*') && (!(e.target.classList.contains('equal'))) && (!(e.target.classList.contains('decimal')))) {
+        operator = '';
+        display.textContent += e.target.value;
+        firstValue = Number(display.textContent);
+        //if the operator = '-', then add the operator
+        //to whatever number comes after it, and make
+        //that the firstValue.
+    } else if((!firstValue) && (!secondValue) && (e.target.classList.contains('btn-class')) && (operator === '-') && (!(e.target.classList.contains('equal'))) && (!(e.target.classList.contains('decimal')))) { 
+        operator = '';
+        display.textContent += e.target.value;
+        firstValue = Number(display.textContent); 
         //make these changes to below else if.
         //Only do this if answer is NOT 'Oh, hell naw'
-    } else if((e.target.classList.contains('btn-class')) && (answer != 'Oh, hell naw') && (operator) && (!(e.target.classList.contains('decimal'))) && secondValue.toString().length < 5) {
+    } else if((e.target.classList.contains('btn-class')) && (answer != 'Oh, hell naw') && (operator) && (!(e.target.classList.contains('decimal'))) && secondValue.toString().length < 4) {
         operatorTwo = '';
         display.textContent += e.target.value;
         secondValue += e.target.value;
@@ -135,9 +152,15 @@ buttonsDiv.addEventListener('click', function(e) {
 } else if ((secondValue === 0) && (operator = '÷') && (e.target.classList.contains('operation-btn')) && (!(e.target.classList.contains('decimal')))) {
     display.textContent = 'Oh hell naw';
     //equalClear();
+    //The below code needs to be rewritten for when the
+    //operator button is pressed twice. If another operator
+    //is entered, the old operator already clears and adds
+    //the new operator. I need my display to reflect that.
     } else if((!secondValue) && (e.target.classList.contains('operation-btn')) && (!(e.target.classList.contains('decimal')))) {
-        display.textContent += e.target.value;
+        /*display.textContent += e.target.value;
+        operator = e.target.value;*/
         operator = e.target.value;
+        display.textContent = `${firstValue} ${operator}`;
     } else if((secondValue) && (e.target.classList.contains('operation-btn')) && (!(e.target.classList.contains('decimal')))) {
         //if a second value exists, then initialize operatorTwo
         //and return answer and store it in the firstValue
@@ -172,6 +195,7 @@ const equalClear = function() {
     secondValue = '';
     firstValue = Number(answer);
     display.textContent = firstValue;
+    operator = '';
     //if operatorTwo exists, then display it and use it on
     //values, with firstValue being equal to answer. Need
     //to be able to loop for multiple operatorTwo.
@@ -237,6 +261,11 @@ equalsBtn.addEventListener('click', function() {
     //secondValue is a 0, then do operation. 
     if ((firstValue) && (operator) && (secondValue === 0)) {
         answer = operate(operator, firstValue, secondValue);
+        //need an if statement for when answer is larger than
+        //100000
+        if(answer > 100000) {
+            answer = answer.toExponential(1);
+        }
         display.textContent = answer;
         firstValue = '';
         operator = '';
@@ -255,6 +284,11 @@ equalsBtn.addEventListener('click', function() {
         //if there is no second operator, then operate on
         //the values and return the answer
         answer = operate(operator, firstValue, secondValue);
+        if(answer > 100000) {
+            display.textContent = answer.toExponential(1);
+            return answer = answer.toExponential(1);
+        }
+        answer = Number(answer);
         answer = Number((answer.toFixed(5)));
         equalClear();
     //if firstValue is 0 and secondValue exists and there
@@ -274,9 +308,10 @@ equalsBtn.addEventListener('click', function() {
         answer = operate(operator, firstValue, secondValue);
         answer = Number(answer);
         answer = Number((answer.toFixed(5)));
-        display.textContent = answer;
+        display.textContent = answer.toExponential(1);
         display.textContent += ` ${operatorTwo}`;
-        firstValue = answer;
+        firstValue = answer.toExponential(1);
+        firstValue = Number(firstValue);
         secondValue = '';
         operator = operatorTwo;
         buttonsDiv.click();
