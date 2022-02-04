@@ -9,3 +9,4 @@ My calculator will feature these operations:
     Multiplication
     Division
 
+This calculator is published at https://thegamelessplayer7.github.io/calculator/
